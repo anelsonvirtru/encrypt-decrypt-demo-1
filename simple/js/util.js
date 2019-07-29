@@ -145,10 +145,12 @@ function chooseAuthProviderByType(opts){
 
 //Convenience function to initialize an auth client
 function initAuthClient(){
+  /*
     oauthClient = oauthClient || Virtru.OAuth.init({
       userId: getUser(), 
       platform: 'aodocs'
     });
+  */
 }
 
 //Builds a new client (if needed)
@@ -200,8 +202,8 @@ function logout(){
   const loggedInUser = getUser();
   initAuthClient();
 
-  oauthClient.logoutSingleUser(getUser());
-  window.location.href = `${BASE_URL}`;
+  //oauthClient.logoutSingleUser(getUser());
+  //window.location.href = `${BASE_URL}`;
 }
 
 //Redirect the user if they don't have a current, valid saved appIdBundle

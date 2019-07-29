@@ -4,8 +4,8 @@
 **/
 
 //Require all node modules needed to be access by the browser
-const filesaver = require('file-saver');
-const fileType = require('file-type');
+//const filesaver = require('file-saver');
+//const fileType = require('file-type');
 const moment = require('moment');
 
 //Imports for our simple example
@@ -22,7 +22,7 @@ imports.forEach((i) => {
 });
 
 //Add other necessary modules on the window
-window.saveAs = filesaver.saveAs;
+//window.saveAs = filesaver.saveAs;
 window.Buffer = Buffer;
-window.fileType = fileType;
+//window.fileType = fileType;
 window.moment = moment;

@@ -26,7 +26,7 @@ const loginUsingOutlook = async () => {
 const loginUsingGoogle = async () => {
   authType='google';
   // await skipLoginIfPossible(authType);
-  await Virtru.Auth.loginWithGoogle({email: getUser(), redirectUrl: buildRedirectUrl(), ...authUrls()});
+  await Virtru.Auth.loginWithGoogle({email: getUser(), redirectUrl: '', ...authUrls()});
 };
 
 //Log in the user using Office365
