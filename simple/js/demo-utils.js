@@ -6639,7 +6639,7 @@ async function streamToBuffer(stream) {
 
 
 //Encrypt the filedata and return the stream content and filename
-async function encrypt(filereader, filename, userId, asHtml) {
+async function encrypt(data, filename, userId, asHtml) {
   //TODO use withBuffer
   
   client = buildClient();
@@ -6648,7 +6648,7 @@ async function encrypt(filereader, filename, userId, asHtml) {
 
   const encryptParams = new Virtru.EncryptParamsBuilder()
       //.withBufferSource(toBuffer(filereader.result))
-      .withFileReaderSource(filereader)
+      .withArrayBufferSource(data)
       .withPolicy(policy)
       .withDisplayFilename(filename)
       .build();
@@ -6659,11 +6659,11 @@ async function encrypt(filereader, filename, userId, asHtml) {
 
 
 //Decrypt the file by creating an object url (for now) and return the stream content
-async function decrypt(filereader, userId, asHtml) {
+async function decrypt(data, userId, asHtml) {
 
  client = buildClient();
  const decryptParams = new Virtru.DecryptParamsBuilder()
-      .withFileReaderSource(filereader)
+      .withArrayBufferSource(data)
       .build();
 
  const content = await client.decrypt(decryptParams);
@@ -6693,12 +6693,12 @@ async function encryptOrDecryptFile(filedata, filename, shouldEncrypt, userId, c
   if (shouldEncrypt) {
     const ext = asHtml ? 'html' : 'tdf';
     const written = await encrypt(filedata, filename, userId, asHtml);
-    await written.toBrowserFile(filename + '.tdf');
+    await written.toFile(filename + '.tdf');
     //saveFile(written.content, getMimeByProtocol(asHtml), `${written.name}.${ext}`);
     completion && completion();
   } else {
     const written = await decrypt(filedata, userId, isHtmlProtocol);
-    await written.toBrowserFile(filename + '.nottdf');
+    await written.toFile(filename + '.nottdf');
     /*
     //const finalFilename = await getDecryptedFileName(filename);
     const ext = filename.substr(-4);
